@@ -12,7 +12,7 @@ export default async function DashboardLayout({
     return (
         <div className="flex min-h-screen bg-gray-50">
             <DashboardSidebar
-                role={user.role}
+                role={user.role ?? "CUSTOMER"}
                 name={user.name}
                 email={user.email}
             />
