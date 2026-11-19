@@ -16,6 +16,7 @@ export interface Vendor {
 }
 
 export interface Service {
+  id: string;
   slug: string;
   name: string;
   category: string;
@@ -165,6 +166,17 @@ export const categories: Category[] = [
     vendorCount: "110+ boutiques",
   },
 ];
+
+
+export const serviceCategoryMap: Record<string, string[]> = {
+  "photography-videography": ["Photography", "Videography"],
+  "wedding-venues": ["Wedding Venues"],
+  "decoration-florist": ["Decoration & Florist"],
+  "catering-services": ["Catering Services"],
+  "makeup-styling": ["Makeup & Styling"],
+  "wedding-fashion": ["Wedding Fashion"],
+};
+
 
 export const benefits: Benefit[] = [
   {
