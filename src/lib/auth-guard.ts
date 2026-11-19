@@ -5,40 +5,45 @@ import { redirect } from "next/navigation";
 
 export type UserRole = "CUSTOMER" | "VENDOR" | "ADMIN";
 
-export function getDashboardPath(role: UserRole) {
-    switch (role) {
-        case "VENDOR":
-            return "/vendor/dashboard";
-        case "ADMIN":
-            return "/admin/dashboard";
-        case "CUSTOMER":
-        default:
-            return "/customer/dashboard";
-    }
-}
+const isValidRole = (role: unknown): role is UserRole => {
+    return ["CUSTOMER", "VENDOR", "ADMIN"].includes(role as string);
+};
 
-export async function requireUser() {
+// Get authenticated user
+export const getCurrentUser = async () => {
     const session = await auth.api.getSession({
         headers: await headers(),
     });
 
-    if (!session) {
-        redirect("/sign-in");
+    return session?.user ?? null;
+};
+
+// Require authentication
+export const requireUser = async () => {
+    const user = await getCurrentUser();
+
+    if (!user) {
+        redirect("/login");
     }
 
-    if (session.user.isBlocked) {
-        redirect("/sign-in?error=account-blocked");
+    if (user.isBlocked) {
+        redirect("/login?error=blocked");
     }
 
-    return session.user;
-}
-
-export async function requireRole(requiredRole: UserRole) {
-    const user = await requireUser();
-
-    if (user.role !== requiredRole) {
-        redirect(getDashboardPath(user.role as UserRole));
+    if (!isValidRole(user.role)) {
+        redirect("/login?error=invalid-role");
     }
 
     return user;
-}
+};
+
+// Require a specific role
+export const requireRole = async (allowedRole: UserRole) => {
+    const user = await requireUser();
+
+    if (user.role !== allowedRole) {
+        redirect(`/dashboard/${user.role.toLowerCase()}`);
+    }
+
+    return user;
+};

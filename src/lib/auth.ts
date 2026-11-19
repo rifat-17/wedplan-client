@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "@better-auth/mongo-adapter";
 import { APIError, createAuthMiddleware } from "better-auth/api";
+import { jwt } from "better-auth/plugins";
 
 const client = new MongoClient(process.env.MONGODB_URI as string);
 const db = client.db("wedplan");
@@ -54,44 +55,53 @@ export const auth = betterAuth({
     },
 
     hooks: {
-    before: createAuthMiddleware(async (ctx) => {
-        if (ctx.path === "/sign-up/email") {
-            const password = ctx.body?.password;
-            const role = ctx.body?.role;
+        before: createAuthMiddleware(async (ctx) => {
+            if (ctx.path === "/sign-up/email") {
+                const password = ctx.body?.password;
+                const role = ctx.body?.role;
 
-            if (
-                typeof password !== "string" ||
-                password.length < 6 ||
-                !/[A-Z]/.test(password) ||
-                !/[a-z]/.test(password)
-            ) {
-                throw new APIError("BAD_REQUEST", {
-                    message:
-                        "Password must contain at least 6 characters, including uppercase and lowercase letters.",
-                });
+                if (
+                    typeof password !== "string" ||
+                    password.length < 6 ||
+                    !/[A-Z]/.test(password) ||
+                    !/[a-z]/.test(password)
+                ) {
+                    throw new APIError("BAD_REQUEST", {
+                        message:
+                            "Password must contain at least 6 characters, including uppercase and lowercase letters.",
+                    });
+                }
+
+                if (
+                    role !== undefined &&
+                    role !== "CUSTOMER" &&
+                    role !== "VENDOR"
+                ) {
+                    throw new APIError("BAD_REQUEST", {
+                        message: "Invalid account role.",
+                    });
+                }
+
+                return;
             }
 
-            if (
-                role !== undefined &&
-                role !== "CUSTOMER" &&
-                role !== "VENDOR"
-            ) {
-                throw new APIError("BAD_REQUEST", {
-                    message: "Invalid account role.",
+            // Do not allow role changes through other Better Auth endpoints.
+            if (ctx.body?.role !== undefined) {
+                throw new APIError("FORBIDDEN", {
+                    message: "You cannot change your account role.",
                 });
             }
+        }),
+    },
 
-            return;
+    plugins: [jwt()],
+    session: {
+        cookieCache: {
+            enabled: true,
+            strategy: 'jwt',
+            maxAge: 7 * 24 * 60 * 60
         }
-
-        // Do not allow role changes through other Better Auth endpoints.
-        if (ctx.body?.role !== undefined) {
-            throw new APIError("FORBIDDEN", {
-                message: "You cannot change your account role.",
-            });
-        }
-    }),
-},
+    },
 
     database: mongodbAdapter(db, {
         client,
