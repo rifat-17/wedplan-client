@@ -40,9 +40,14 @@ export const requireUser = async () => {
 // Require a specific role
 export const requireRole = async (allowedRole: UserRole) => {
     const user = await requireUser();
+    const role = user.role;
 
-    if (user.role !== allowedRole) {
-        redirect(`/dashboard/${user.role.toLowerCase()}`);
+    if (!isValidRole(role)) {
+        redirect("/login?error=invalid-role");
+    }
+
+    if (role !== allowedRole) {
+        redirect(`/dashboard/${role.toLowerCase()}`);
     }
 
     return user;
