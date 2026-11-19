@@ -16,7 +16,7 @@ export interface Vendor {
 }
 
 export interface Service {
-  id: string;
+  
   slug: string;
   name: string;
   category: string;
