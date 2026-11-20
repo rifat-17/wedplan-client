@@ -2,6 +2,7 @@
 import { notFound } from "next/navigation";
 import { getPublicServiceById } from "@/lib/services-apis/service";
 import { requireUser } from "@/lib/auth-guard";
+import BookingForm from "@/components/services/booking-form";
 
 type Props = {
     params: Promise<{
@@ -54,6 +55,11 @@ export default async function ServiceDetailsPage({ params }: Props) {
                         Location: {service.location}
                     </p>
                 </div>
+            </div>
+
+            {/* Booking Form */}
+            <div className="mt-10">
+                <BookingForm serviceId={service._id} />
             </div>
         </div>
     );
