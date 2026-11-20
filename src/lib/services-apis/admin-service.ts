@@ -236,3 +236,43 @@ export const deleteAdminService = async (
 
     return result;
 };
+
+
+
+
+export const getAdminTransactions = async (
+    token: string,
+    search = "",
+    status = "",
+    plan = ""
+): Promise<AdminTransactionsResponse> => {
+    const params = new URLSearchParams();
+
+    if (search) {
+        params.set("search", search);
+    }
+
+    if (status) {
+        params.set("status", status);
+    }
+
+    if (plan) {
+        params.set("plan", plan);
+    }
+
+    const response = await fetch(
+        `${API_URL}/admin/transactions?${params.toString()}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            cache: "no-store",
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch transactions");
+    }
+
+    return response.json();
+};

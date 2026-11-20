@@ -1,20 +1,20 @@
 
-import { 
-    Users, 
-    Store, 
-    UserRound, 
-    BriefcaseBusiness, 
-    Clock, 
-    Receipt 
+import {
+    Users,
+    Store,
+    UserRound,
+    BriefcaseBusiness,
+    Clock,
+    CreditCard,
 } from "lucide-react";
 
 import { requireRole } from "@/lib/auth-guard";
-import StatsCard from "@/components/dashboard/stats-card";
-import { getAdminDashboardStats } from "@/lib/services-apis/admin-service";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
+import { getAdminDashboardStats } from "@/lib/services-apis/admin-service";
+import StatsCard from "@/components/dashboard/stats-card";
 
 export default async function AdminDashboard() {
-    const user = await requireRole("ADMIN");
+    await requireRole("ADMIN");
 
     const token = await getTokenFromServer();
 
@@ -25,25 +25,20 @@ export default async function AdminDashboard() {
     const stats = await getAdminDashboardStats(token);
 
     return (
-        <div className="space-y-8">
-            {/* Header */}
+        <div className="space-y-6">
             <div>
-                <h1 className="text-2xl font-bold">
-                    Welcome back, {user.name}!
-                </h1>
-
+                <h1 className="text-2xl font-bold">Admin Overview</h1>
                 <p className="mt-1 text-sm text-gray-500">
-                    Here's what's happening across WedPlan.
+                    Monitor and manage the WedPlan platform.
                 </p>
             </div>
 
-            {/* Statistics */}
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 <StatsCard
                     title="Total Users"
                     value={stats.totalUsers}
                     icon={Users}
-                    description="All registered users"
+                    description="All registered accounts"
                 />
 
                 <StatsCard
@@ -71,13 +66,13 @@ export default async function AdminDashboard() {
                     title="Pending Services"
                     value={stats.pendingServices}
                     icon={Clock}
-                    description="Services awaiting approval"
+                    description="Awaiting admin review"
                 />
 
                 <StatsCard
                     title="Total Transactions"
                     value={stats.totalTransactions}
-                    icon={Receipt}
+                    icon={CreditCard}
                     description="Recorded payment transactions"
                 />
             </div>

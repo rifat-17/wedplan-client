@@ -55,3 +55,28 @@ export type AdminServicesResponse = {
     services: AdminService[];
     total: number;
 };
+
+
+
+
+export type AdminTransaction = {
+    _id: string;
+    vendorId: string;
+    plan: "FREE" | "PREMIUM";
+    amount: number;
+    currency: string;
+    stripeSessionId: string;
+    stripeSubscriptionId?: string;
+    status: "pending" | "paid" | "failed" | "cancelled";
+    createdAt: string;
+    vendor?: {
+        name: string;
+        email?: string;
+        businessName?: string;
+    } | null;
+};
+
+export type AdminTransactionsResponse = {
+    transactions: AdminTransaction[];
+    total: number;
+};
