@@ -23,8 +23,13 @@ export default function BookingForm({ serviceId }: Props) {
         const formData = new FormData(form);
 
         const eventDate = formData.get("eventDate") as string;
-        const eventLocation = formData.get("eventLocation") as string;
+        const eventLocation = formData.get("eventLocation")?.toString().trim();
         const additionalMessage = formData.get("additionalMessage") as string;
+
+        if (!eventLocation) {
+            toast.error("Please enter your event location.");
+            return;
+        }
 
         try {
             setLoading(true);
@@ -77,6 +82,7 @@ export default function BookingForm({ serviceId }: Props) {
                         id="eventDate"
                         name="eventDate"
                         type="date"
+                        min={new Date().toISOString().split("T")[0]}
                         required
                         className="w-full rounded-lg border px-4 py-3 outline-none focus:border-pink-500"
                     />
@@ -92,6 +98,7 @@ export default function BookingForm({ serviceId }: Props) {
                         name="eventLocation"
                         type="text"
                         placeholder="Enter your event location"
+                        maxLength={200}
                         required
                         className="w-full rounded-lg border px-4 py-3 outline-none focus:border-pink-500"
                     />
@@ -106,6 +113,7 @@ export default function BookingForm({ serviceId }: Props) {
                         id="additionalMessage"
                         name="additionalMessage"
                         rows={4}
+                        maxLength={500}
                         placeholder="Tell the vendor more about your event..."
                         className="w-full rounded-lg border px-4 py-3 outline-none focus:border-pink-500"
                     />

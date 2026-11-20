@@ -95,3 +95,61 @@ export const updateBookingStatus = async (
 
     return result;
 };
+
+
+
+export const getCustomerBookings = async (
+    token: string
+): Promise<{
+    bookings: Booking[];
+    total: number;
+}> => {
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(`${API_URL}/customer/bookings`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch customer bookings.");
+    }
+
+    return result;
+};
+
+
+
+
+export const cancelCustomerBooking = async (
+    token: string,
+    bookingId: string
+): Promise<{ message: string }> => {
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(
+        `${API_URL}/customer/bookings/${bookingId}/cancel`,
+        {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to cancel booking.");
+    }
+
+    return result;
+};
