@@ -112,3 +112,46 @@ export const deleteVendorService = async (
 
     return result;
 };
+
+
+type UpdateServicePayload = {
+    serviceName?: string;
+    category?: string;
+    description?: string;
+    price?: number;
+    location?: string;
+    images?: string[];
+};
+
+
+export const updateVendorService = async (
+    token: string,
+    serviceId: string,
+    serviceData: UpdateServicePayload
+) => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(
+        `${API_URL}/vendor/services/${serviceId}`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(serviceData),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to update service.");
+    }
+
+    return result;
+};

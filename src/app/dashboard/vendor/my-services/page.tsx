@@ -4,7 +4,7 @@ import { requireRole } from "@/lib/auth-guard";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import { getVendorServices } from "@/lib/services-apis/service";
 
-
+import Link from "next/link";
 
 const statusStyles = {
     pending: "bg-yellow-50 text-yellow-700",
@@ -121,7 +121,14 @@ export default async function MyServicesPage() {
                                     </span>
                                 </div>
 
-                                <div className="flex justify-end border-t pt-4">
+                                <div className="flex items-center justify-between border-t pt-4">
+                                    <Link
+                                        href={`/dashboard/vendor/my-services/${service._id}/edit`}
+                                        className="rounded-lg border border-pink-200 px-3 py-2 text-sm font-medium text-pink-600 transition hover:bg-pink-50"
+                                    >
+                                        Edit
+                                    </Link>
+
                                     <DeleteServiceButton serviceId={service._id} />
                                 </div>
 
