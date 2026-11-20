@@ -27,3 +27,31 @@ export type AdminUsersResponse = {
     users: AdminUser[];
     total: number;
 };
+
+
+
+
+export type AdminService = {
+    _id: string;
+    vendorId: string;
+    serviceName: string;
+    category: string;
+    description: string;
+    price: number;
+    location: string;
+    images: string[];
+    status: "pending" | "approved" | "rejected";
+    availability: "active" | "inactive";
+    createdAt: string;
+    vendor?: {
+        name: string;
+        email?: string;
+        businessName?: string;
+        image?: string;
+    } | null;
+};
+
+export type AdminServicesResponse = {
+    services: AdminService[];
+    total: number;
+};
