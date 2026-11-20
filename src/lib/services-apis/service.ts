@@ -191,3 +191,39 @@ export const updateServiceAvailability = async (
 
     return result;
 };
+
+
+
+export const getPublicServices = async (
+    category?: string
+): Promise<{
+    services: VendorService[];
+    total: number;
+}> => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const params = new URLSearchParams();
+
+    if (category && category !== "All") {
+        params.set("category", category);
+    }
+
+    const query = params.toString();
+
+    const response = await fetch(
+        `${API_URL}/services${query ? `?${query}` : ""}`,
+        { cache: "no-store" }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch services.");
+    }
+
+    return result;
+};
