@@ -34,3 +34,81 @@ export const createService = async (
 
     return result;
 };
+
+
+
+export type VendorService = {
+    _id: string;
+    vendorId: string;
+    serviceName: string;
+    category: string;
+    description: string;
+    price: number;
+    location: string;
+    images: string[];
+    status: "pending" | "approved" | "rejected";
+    availability: "active" | "inactive";
+    createdAt: string;
+};
+
+type VendorServicesResponse = {
+    services: VendorService[];
+    total: number;
+};
+
+export const getVendorServices = async (
+    token: string
+): Promise<VendorServicesResponse> => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(`${API_URL}/vendor/services`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch vendor services.");
+    }
+
+    return result;
+};
+
+
+
+
+export const deleteVendorService = async (
+    token: string,
+    serviceId: string
+) => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(
+        `${API_URL}/vendor/services/${serviceId}`,
+        {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to delete service.");
+    }
+
+    return result;
+};

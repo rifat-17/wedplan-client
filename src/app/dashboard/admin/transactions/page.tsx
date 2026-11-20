@@ -69,7 +69,7 @@ export default async function AdminTransactionsPage({
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y">
+                    {/* <tbody className="divide-y">
                         {transactions.map((transaction) => (
                             <tr key={transaction._id}>
                                 <td className="p-4">
@@ -122,7 +122,7 @@ export default async function AdminTransactionsPage({
                                 </td>
                             </tr>
                         )}
-                    </tbody>
+                    </tbody> */}
                 </table>
             </div>
         </div>
