@@ -1,4 +1,4 @@
-import { AdminDashboardStats, AdminServicesResponse, AdminUser } from "../types/admin";
+import { AdminDashboardStats, AdminServicesResponse, AdminTransactionsResponse, AdminUser } from "../types/admin";
 import {
     AdminUsersResponse,
 } from "../types/admin";
