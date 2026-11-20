@@ -38,6 +38,7 @@ export default function AddServiceForm() {
 
             // Get the authenticated vendor's JWT.
             const token = await getTokenFromClient();
+           
 
             // Send service information to Express.
             await createService(token, {
