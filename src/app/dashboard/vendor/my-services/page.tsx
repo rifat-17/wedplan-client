@@ -1,5 +1,6 @@
 
 import DeleteServiceButton from "@/components/dashboard/vendor/delete-service-button";
+import ServiceAvailabilityToggle from "@/components/dashboard/vendor/service-availability-toggle";
 import { requireRole } from "@/lib/auth-guard";
 import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import { getVendorServices } from "@/lib/services-apis/service";
@@ -119,6 +120,14 @@ export default async function MyServicesPage() {
                                         }`}>
                                         {service.availability}
                                     </span>
+                                    {service.status === "approved" && (
+                                        <div className="flex justify-end">
+                                            <ServiceAvailabilityToggle
+                                                serviceId={service._id}
+                                                availability={service.availability}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="flex items-center justify-between border-t pt-4">

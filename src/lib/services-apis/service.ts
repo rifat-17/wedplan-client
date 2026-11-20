@@ -155,3 +155,39 @@ export const updateVendorService = async (
 
     return result;
 };
+
+
+
+export const updateServiceAvailability = async (
+    token: string,
+    serviceId: string,
+    availability: "active" | "inactive"
+) => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(
+        `${API_URL}/vendor/services/${serviceId}/availability`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ availability }),
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.message || "Failed to update service availability."
+        );
+    }
+
+    return result;
+};
