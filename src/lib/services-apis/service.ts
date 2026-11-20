@@ -227,3 +227,28 @@ export const getPublicServices = async (
 
     return result;
 };
+
+
+
+export const getPublicServiceById = async (
+    serviceId: string
+): Promise<VendorService> => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!API_URL) {
+        throw new Error("Backend API URL is not configured.");
+    }
+
+    const response = await fetch(
+        `${API_URL}/services/${serviceId}`,
+        { cache: "no-store" }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Failed to fetch service details.");
+    }
+
+    return result;
+};
