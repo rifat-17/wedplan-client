@@ -51,6 +51,8 @@ export default async function ServiceDetailsPage({ params }: Props) {
                         ৳{service.price.toLocaleString("en-BD")}
                     </p>
 
+                    
+
                     <p className="text-gray-500">
                         Location: {service.location}
                     </p>

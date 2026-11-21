@@ -7,10 +7,16 @@ import { ImagePlus, X } from "lucide-react";
 
 type ImageUploadProps = {
     onUpload: (file: File | null) => void;
+    initialImage?: string | null;
 };
 
-export default function ImageUpload({ onUpload }: ImageUploadProps) {
-    const [preview, setPreview] = useState<string | null>(null);
+export default function ImageUpload({
+    onUpload,
+    initialImage,
+}: ImageUploadProps) {
+    const [preview, setPreview] = useState<string | null>(
+        initialImage ?? null
+    );
 
     const handleImageChange = (file?: File) => {
         if (!file) return;
