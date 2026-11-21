@@ -139,7 +139,7 @@ export default function SignUpForm() {
             } else {
                 router.push("/customer/dashboard");
             }
-
+               
             router.refresh();
 
             setMessage(
@@ -157,6 +157,7 @@ export default function SignUpForm() {
                     ? err.message
                     : "Something went wrong. Please try again."
             );
+             console.log("error " , error);
         } finally {
             setIsUploading(false);
         }

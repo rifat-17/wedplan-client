@@ -21,20 +21,20 @@ export default function AuthRedirect() {
 
         const role = session.user.role;
 
-        
+
 
         switch (role) {
             case "ADMIN":
-                router.replace("/admin/dashboard");
+                router.replace("/dashboard/admin");
                 break;
 
             case "VENDOR":
-                router.replace("/vendor/dashboard");
+                router.replace("/dashboard/vendor");
                 break;
 
             case "CUSTOMER":
             default:
-                router.replace("/customer/dashboard");
+                router.replace("/dashboard/customer");
                 break;
         }
     }, [session, isPending, router]);
