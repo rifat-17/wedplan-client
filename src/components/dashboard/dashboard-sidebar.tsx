@@ -58,7 +58,7 @@ export default function DashboardSidebar({ role, name, email }: Props) {
 
     const handleLogout = async () => {
         await authClient.signOut();
-        router.push("/login");
+        router.push("/sign-in");
         router.refresh();
     };
 

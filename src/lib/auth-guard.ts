@@ -26,15 +26,15 @@ export const requireUser = async () => {
     const user = await getCurrentUser();
 
     if (!user) {
-        redirect("/login");
+        redirect("/sign-in");
     }
 
     if (user.isBlocked) {
-        redirect("/login?error=blocked");
+        redirect("/sign-in?error=blocked");
     }
 
     if (!isValidRole(user.role)) {
-        redirect("/login?error=invalid-role");
+        redirect("/sign-in?error=invalid-role");
     }
 
     return user;
@@ -46,7 +46,7 @@ export const requireRole = async (allowedRole: UserRole) => {
     const role = user.role;
 
     if (!isValidRole(role)) {
-        redirect("/login?error=invalid-role");
+        redirect("/sign-in?error=invalid-role");
     }
 
     if (role !== allowedRole) {

@@ -7,11 +7,11 @@ export default async function DashboardPage() {
     const user = await getCurrentUser();
 
     if (!user) {
-        redirect("/login");
+        redirect("/sign-in");
     }
 
     if (user.isBlocked) {
-        redirect("/login?error=blocked");
+        redirect("/sign-in?error=blocked");
     }
 
     switch (user.role) {
@@ -25,6 +25,6 @@ export default async function DashboardPage() {
             redirect("/dashboard/admin");
 
         default:
-            redirect("/login?error=invalid-role");
+            redirect("/sign-in?error=invalid-role");
     }
 }
