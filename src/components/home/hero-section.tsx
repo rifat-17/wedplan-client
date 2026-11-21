@@ -24,11 +24,6 @@ const item: Variants = {
   },
 };
 
-const trustAvatars = [
-  { src: "/images/vendors/elena.jpg", alt: "Elena Rossi" },
-  { src: "/images/vendors/marcus.jpg", alt: "Marcus Bell" },
-  { src: "/images/vendors/amara.jpg", alt: "Amara Lewis" },
-];
 
 export function HeroSection() {
   return (
@@ -96,14 +91,14 @@ export function HeroSection() {
               Explore Wedding Services
               <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
             </Link>
-            
+
           </motion.div>
 
           <motion.div
             variants={item}
             className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4 border-t border-white/15 pt-7"
           >
-          
+
           </motion.div>
         </motion.div>
       </div>
