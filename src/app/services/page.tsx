@@ -2,20 +2,34 @@
 import Link from "next/link";
 import { getPublicServices } from "@/lib/services-apis/service";
 import { Suspense } from "react";
-import ServiceCategoryFilter from "@/components/services/service-category-filter";
+import ServiceFilters from "@/components/services/service-filters";
+
 
 
 type Props = {
     searchParams: Promise<{
+        search?: string;
         category?: string;
+        location?: string;
+        sort?: string;
     }>;
 };
 
 export default async function BrowseServicePage({ searchParams }: Props) {
 
-    const { category } = await searchParams;
+    const { search, category, location, sort: sortParam } = await searchParams;
 
-    const { services, total } = await getPublicServices(category);
+    const sort =
+    sortParam === "price_asc" || sortParam === "price_desc"
+        ? sortParam
+        : undefined;
+
+    const { services, total } = await getPublicServices({
+        search,
+        category,
+        location,
+        sort,
+    });
 
     return (
         <div className="mx-auto max-w-7xl space-y-8 px-4 py-10">
@@ -32,8 +46,8 @@ export default async function BrowseServicePage({ searchParams }: Props) {
                 </p>
             </div>
 
-            <Suspense fallback={<div className="h-10" />}>
-                <ServiceCategoryFilter />
+            <Suspense fallback={<div className="h-20" />}>
+                <ServiceFilters />
             </Suspense>
 
             {/* Services Grid */}

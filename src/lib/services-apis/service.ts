@@ -194,8 +194,15 @@ export const updateServiceAvailability = async (
 
 
 
+
+
 export const getPublicServices = async (
-    category?: string
+    filters?: {
+        search?: string;
+        category?: string;
+        location?: string;
+        sort?: "price_asc" | "price_desc";
+    }
 ): Promise<{
     services: VendorService[];
     total: number;
@@ -208,8 +215,20 @@ export const getPublicServices = async (
 
     const params = new URLSearchParams();
 
-    if (category && category !== "All") {
-        params.set("category", category);
+    if (filters?.search) {
+        params.set("search", filters.search);
+    }
+
+    if (filters?.category && filters.category !== "All") {
+        params.set("category", filters.category);
+    }
+
+    if (filters?.location) {
+        params.set("location", filters.location);
+    }
+
+    if (filters?.sort) {
+        params.set("sort", filters.sort);
     }
 
     const query = params.toString();
@@ -227,6 +246,8 @@ export const getPublicServices = async (
 
     return result;
 };
+
+
 
 
 
