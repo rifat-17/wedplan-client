@@ -2,11 +2,14 @@ import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 
 import { stripe } from '../../../lib/stripe'
-import { getSession } from 'better-auth/api'
+import { getSession } from '@/lib/core/server';
+
+
+
 
 export async function POST() {
 
-    const userSession = await getSession()
+    const userSession = await getSession();
 
     try {
         const headersList = await headers()
