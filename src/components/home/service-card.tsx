@@ -4,16 +4,17 @@ import {
   ArrowUpRightIcon,
   BadgeCheckIcon,
   MapPinIcon,
-  StarIcon,
+
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import type { Service } from "@/data/home-data";
+
 import { cn } from "@/lib/utils";
+import { ServiceProps } from "@/lib/types/services";
 
 type ServiceCardProps = {
-  service: Service;
+  service: ServiceProps;
   className?: string;
 };
 
@@ -27,11 +28,14 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         <Image
-          src={service.image}
-          alt={`${service.name} — ${service.category}`}
+          src={service.images?.[0] || "/service-placeholder.svg"}
+          alt={`${service.serviceName} — ${service.category}`}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-[1.04]"
+          onError={(e) => {
+            e.currentTarget.src = "/service-placeholder.svg";
+          }}
         />
         <div
           aria-hidden="true"
@@ -45,21 +49,17 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
           {service.category}
         </Badge>
 
-        <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-foreground/55 px-2 py-1 text-[0.7rem] font-medium text-white backdrop-blur-sm">
-          <StarIcon className="size-3 fill-[#f0c98c] text-[#f0c98c]" aria-hidden="true" />
-          {service.rating.toFixed(1)}
-          <span className="sr-only">out of 5</span>
-        </span>
+
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-serif text-[1.3rem] leading-snug font-medium tracking-tight text-foreground">
             <Link
-              href={`/services/${service.slug}`}
+              href={`/services/${service._id}`}
               className="rounded-sm outline-none after:absolute after:inset-0 after:content-[''] focus-visible:underline focus-visible:decoration-primary/50 focus-visible:underline-offset-4"
             >
-              {service.name}
+              {service.vendor.businessName || service.vendor.name}
             </Link>
           </h3>
         </div>
@@ -72,11 +72,14 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
         <div className="mt-4 flex items-center gap-2.5">
           <span className="relative size-8 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
             <Image
-              src={service.vendor.avatar}
+              src={service.vendor.image || "/default-avatar.svg"}
               alt=""
               fill
               sizes="32px"
               className="object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "/default-avatar.svg";
+              }}
             />
           </span>
           <span className="min-w-0">
@@ -97,7 +100,7 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
                 Starting at
               </p>
               <p className="mt-0.5 text-lg font-semibold tracking-tight text-foreground">
-                {service.startingPrice}
+                ৳{service.price.toLocaleString("en-BD")}
               </p>
             </div>
             <span className="inline-flex items-center gap-1 pb-0.5 text-[0.8rem] font-medium text-rose transition-colors group-hover/card:text-rose/80">

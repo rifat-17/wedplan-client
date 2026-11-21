@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { ArrowUpRightIcon } from "lucide-react";
 
-import { categories } from "@/data/home-data";
+
 
 import { SectionHeading } from "./section-heading";
 

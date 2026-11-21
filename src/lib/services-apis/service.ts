@@ -1,3 +1,5 @@
+import { ServiceProps } from "../types/services";
+
 type CreateServicePayload = {
     serviceName: string;
     category: string;
@@ -272,4 +274,21 @@ export const getPublicServiceById = async (
     }
 
     return result;
+};
+
+
+//featured-service
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export const getFeaturedServices = async (): Promise<ServiceProps[]> => {
+    const response = await fetch(`${API_URL}/featured-services`);
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch featured services");
+    }
+
+    const data = await response.json();
+
+    return data.services;
 };

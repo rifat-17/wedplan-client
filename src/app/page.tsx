@@ -8,6 +8,7 @@ import { HowItWorksSection } from "@/components/home/how-it-works-section";
 import { MotionProvider } from "@/components/home/motion-provider";
 import { SiteFooter } from "@/components/home/site-footer";
 import { WhyChooseSection } from "@/components/home/why-choose-section";
+import WeddingCategories from "@/components/home/wedding-categories";
 
 export const metadata: Metadata = {
   title: "WedPlan — Your Dream Wedding Starts Here",
@@ -21,11 +22,12 @@ export default function Home() {
       <div className="overflow-x-clip">
         <HeroSection />
         <FeaturedServices />
-        <CategoriesSection />
-        <WhyChooseSection />
-        <HowItWorksSection />
+        <WeddingCategories />
+        {/* <CategoriesSection /> */}
+        {/* <WhyChooseSection /> */}
+        {/* <HowItWorksSection /> */}
         <FinalCtaSection />
-        <SiteFooter />
+        {/* <SiteFooter /> */}
       </div>
     </MotionProvider>
   );
