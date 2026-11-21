@@ -40,11 +40,13 @@ const NAV_LINKS = [
 
 // const ACCOUNT_LINKS = [] as const;
 
+type UserRole = "CUSTOMER" | "VENDOR" | "ADMIN";
+
 type NavbarUser = {
   name: string;
   email: string;
   image?: string | null;
-  role: "CUSTOMER" | "VENDOR" | "ADMIN";
+  role: UserRole;
 };
 
 function isActivePath(pathname: string, href: string) {
@@ -392,12 +394,20 @@ function MobileMenu({
 }
 
 export default function Navbar() {
+
+
   const pathname = usePathname();
   const router = useRouter();
   const { data: session, isPending } = useSession();
-  const user = session?.user ?? null;
-
-
+  
+  const user: NavbarUser | null = session?.user
+    ? {
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
+      role: session.user.role ?? "CUSTOMER",
+    }
+    : null;
 
   const handleSignOut = async () => {
     try {
