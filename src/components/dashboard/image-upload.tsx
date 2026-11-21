@@ -45,7 +45,7 @@ export default function ImageUpload({
     return (
         <div className="space-y-3">
             <label className="text-sm font-medium">
-                Service Image
+                Image
             </label>
 
             {preview ? (

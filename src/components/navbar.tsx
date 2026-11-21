@@ -38,21 +38,39 @@ const NAV_LINKS = [
   { label: "Browse Services", href: "/services" },
 ] as const;
 
-const ACCOUNT_LINKS = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboardIcon },
-  { label: "Profile Settings", href: "/settings/profile", icon: SettingsIcon },
-] as const;
+// const ACCOUNT_LINKS = [] as const;
 
 type NavbarUser = {
   name: string;
   email: string;
   image?: string | null;
+  role: "CUSTOMER" | "VENDOR" | "ADMIN";
 };
 
 function isActivePath(pathname: string, href: string) {
   return href === "/"
     ? pathname === "/"
     : pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function getProfileSettingsPath(role: NavbarUser["role"]) {
+  const profileRoutes = {
+    CUSTOMER: "/dashboard/customer/profile",
+    VENDOR: "/dashboard/vendor/profile",
+    ADMIN: "/dashboard/admin/profile",
+  };
+
+  return profileRoutes[role];
+}
+
+function getDashboardPath(role: NavbarUser["role"]) {
+  const dashboardRoutes = {
+    CUSTOMER: "/dashboard/customer",
+    VENDOR: "/dashboard/vendor",
+    ADMIN: "/dashboard/admin",
+  };
+
+  return dashboardRoutes[role];
 }
 
 function getInitials(name: string) {
@@ -193,16 +211,22 @@ function UserMenu({
           </div>
         </div>
         <DropdownMenuSeparator />
-        {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
-          <DropdownMenuItem
-            key={href}
-            render={<Link href={href} />}
-            className="gap-2 py-2"
-          >
-            <Icon />
-            {label}
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuItem
+          render={<Link href={getDashboardPath(user.role)} />}
+          className="gap-2 py-2"
+        >
+          <LayoutDashboardIcon />
+          Dashboard
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          render={<Link href={getProfileSettingsPath(user.role)} />}
+          className="gap-2 py-2"
+        >
+          <SettingsIcon />
+          Profile Settings
+        </DropdownMenuItem>
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           variant="destructive"
@@ -307,17 +331,26 @@ function MobileMenu({
               </div>
 
               <div className="flex flex-col gap-0.5">
-                {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary/60 hover:text-foreground"
-                  >
-                    <Icon className="size-4" />
-                    {label}
-                  </Link>
-                ))}
+
+                <Link
+                  href={getDashboardPath(user.role)}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary/60 hover:text-foreground"
+                >
+                  <LayoutDashboardIcon className="size-4" />
+                  Dashboard
+                </Link>
+
+                <Link
+                  href={getProfileSettingsPath(user.role)}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary/60 hover:text-foreground"
+                >
+                  <SettingsIcon className="size-4" />
+                  Profile Settings
+                </Link>
+
+
                 <button
                   type="button"
                   onClick={() => {
@@ -364,7 +397,7 @@ export default function Navbar() {
   const { data: session, isPending } = useSession();
   const user = session?.user ?? null;
 
-    
+
 
   const handleSignOut = async () => {
     try {
