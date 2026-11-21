@@ -18,7 +18,7 @@ export default async function CustomerMyBookingsPage() {
         Cancelled: "bg-gray-100 text-gray-700",
     };
 
-    
+
 
     return (
         <div className="space-y-6">
@@ -50,7 +50,7 @@ export default async function CustomerMyBookingsPage() {
                         >
                             <div className="flex flex-wrap items-center justify-between gap-3">
                                 <h2 className="font-semibold">
-                                    
+
                                     Booking #{booking._id.slice(-6)}
                                 </h2>
 
@@ -63,6 +63,33 @@ export default async function CustomerMyBookingsPage() {
                             </div>
 
                             <div className="mt-4 space-y-2 text-sm text-gray-600">
+                                {booking.service && (
+                                    <div className="mb-4">
+                                        <h3 className="text-lg font-semibold text-gray-900">
+                                            {booking.service.serviceName}
+                                        </h3>
+
+                                        <p className="text-sm text-gray-500">
+                                            {booking.service.category}
+                                        </p>
+
+                                        <p className="mt-1 font-medium text-pink-600">
+                                            ৳{booking.service.price.toLocaleString("en-BD")}
+                                        </p>
+                                    </div>
+                                )}
+
+                                {booking.vendor && (
+                                    <div className="mb-4 rounded-lg bg-gray-50 p-3">
+                                        <p className="font-medium text-gray-900">
+                                            Vendor: {booking.vendor.name}
+                                        </p>
+
+                                        <p className="text-gray-500">
+                                            {booking.vendor.email}
+                                        </p>
+                                    </div>
+                                )}
                                 <p>
                                     <strong>Event Date:</strong>{" "}
                                     {booking.eventDate}

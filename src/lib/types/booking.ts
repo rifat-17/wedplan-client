@@ -14,4 +14,17 @@ export type Booking = {
     additionalMessage?: string;
     status: BookingStatus;
     createdAt: string;
+    
+    service?: {
+        serviceName: string;
+        category: string;
+        images: string[];
+        price: number;
+    } | null;
+
+    vendor?: {
+        name: string;
+        email: string;
+        image?: string;
+    } | null;
 };
