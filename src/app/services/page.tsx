@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getPublicServices } from "@/lib/services-apis/service";
 import { Suspense } from "react";
 import ServiceFilters from "@/components/services/service-filters";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 
@@ -46,7 +47,7 @@ export default async function BrowseServicePage({ searchParams }: Props) {
                 </p>
             </div>
 
-            <Suspense fallback={<div className="h-20" />}>
+            <Suspense fallback={<Skeleton className="h-20 w-full rounded-xl" />}>
                 <ServiceFilters />
             </Suspense>
 

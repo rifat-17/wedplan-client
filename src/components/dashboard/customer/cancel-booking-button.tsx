@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
 import { cancelCustomerBooking } from "@/lib/services-apis/booking";
@@ -16,6 +17,8 @@ export default function CancelBookingButton({ bookingId }: Props) {
     const [loading, setLoading] = useState(false);
 
     const handleCancel = async () => {
+        if (loading) return;
+
         const confirmed = window.confirm(
             "Are you sure you want to cancel this booking?"
         );
@@ -51,8 +54,9 @@ export default function CancelBookingButton({ bookingId }: Props) {
             type="button"
             onClick={handleCancel}
             disabled={loading}
-            className="mt-5 rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700 disabled:opacity-50"
+            className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
+            {loading && <Loader2 className="h-4 w-4 animate-spin" />}
             {loading ? "Cancelling..." : "Cancel Booking"}
         </button>
     );

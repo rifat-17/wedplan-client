@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const RecoverPaymentButton = () => {
@@ -11,6 +12,8 @@ const RecoverPaymentButton = () => {
     const [message, setMessage] = useState("");
 
     const handleRecovery = async () => {
+        if (loading) return;
+
         try {
             setLoading(true);
             setMessage("");
@@ -56,8 +59,9 @@ const RecoverPaymentButton = () => {
             <button
                 onClick={handleRecovery}
                 disabled={loading}
-                className="rounded-xl border border-pink-600 px-5 py-3 font-semibold text-pink-600 transition hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-pink-600 px-5 py-3 font-semibold text-pink-600 transition hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
+                {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                 {loading ? "Checking Payment..." : "Recover Previous Payment"}
             </button>
 

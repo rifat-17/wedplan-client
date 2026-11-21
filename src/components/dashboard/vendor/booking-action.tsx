@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
 import { updateBookingStatus } from "@/lib/services-apis/booking";
@@ -13,13 +14,19 @@ type Props = {
 
 export default function BookingAction({ bookingId }: Props) {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
+    const [loadingAction, setLoadingAction] = useState<
+        "Accepted" | "Rejected" | null
+    >(null);
+
+    const isLoading = loadingAction !== null;
 
     const handleStatusUpdate = async (
         status: "Accepted" | "Rejected"
     ) => {
+        if (isLoading) return;
+
         try {
-            setLoading(true);
+            setLoadingAction(status);
 
             const token = await getTokenFromClient();
 
@@ -42,7 +49,7 @@ export default function BookingAction({ bookingId }: Props) {
                     : "Failed to update booking."
             );
         } finally {
-            setLoading(false);
+            setLoadingAction(null);
         }
     };
 
@@ -50,20 +57,26 @@ export default function BookingAction({ bookingId }: Props) {
         <div className="mt-5 flex gap-3">
             <button
                 type="button"
-                disabled={loading}
+                disabled={isLoading}
                 onClick={() => handleStatusUpdate("Accepted")}
-                className="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-                Accept
+                {loadingAction === "Accepted" && (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+                {loadingAction === "Accepted" ? "Accepting..." : "Accept"}
             </button>
 
             <button
                 type="button"
-                disabled={loading}
+                disabled={isLoading}
                 onClick={() => handleStatusUpdate("Rejected")}
-                className="rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-red-600 px-5 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-                Reject
+                {loadingAction === "Rejected" && (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                )}
+                {loadingAction === "Rejected" ? "Rejecting..." : "Reject"}
             </button>
         </div>
     );

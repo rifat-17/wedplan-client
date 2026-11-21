@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { Loader2 } from "lucide-react";
 import ImageUpload from "@/components/dashboard/image-upload";
 
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
@@ -151,8 +152,9 @@ export default function AddServiceForm() {
             <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-lg bg-pink-600 px-5 py-3 font-semibold text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-pink-600 px-5 py-3 font-semibold text-white transition hover:bg-pink-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
+                {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                 {loading ? "Submitting..." : "Submit Service"}
             </button>
         </form>

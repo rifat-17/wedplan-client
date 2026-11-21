@@ -49,7 +49,7 @@ export default async function CustomerMyBookingsPage() {
                 <p className="mt-3 text-sm text-gray-500">
                     {total} total bookings
                 </p>
-                <div className="grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="rounded-xl border bg-white p-5">
                         <p className="text-sm text-gray-500">Pending</p>
                         <h2 className="mt-2 text-2xl font-bold text-yellow-600">

@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { getTokenFromClient } from "@/lib/getTokenFromClient";
@@ -24,9 +25,15 @@ export default function ServiceActions({
     availability,
 }: Props) {
     const router = useRouter();
-    const [loading, setLoading] = useState(false);
+    const [loadingAction, setLoadingAction] = useState<
+        "approve" | "reject" | "availability" | "delete" | null
+    >(null);
+
+    const isLoading = loadingAction !== null;
 
     const handleApproval = async (action: "approve" | "reject") => {
+        if (isLoading) return;
+
         const confirmed = window.confirm(
             `Are you sure you want to ${action} this service?`
         );
@@ -34,7 +41,7 @@ export default function ServiceActions({
         if (!confirmed) return;
 
         try {
-            setLoading(true);
+            setLoadingAction(action);
 
             const token = await getTokenFromClient();
 
@@ -51,16 +58,18 @@ export default function ServiceActions({
                 error instanceof Error ? error.message : "Something went wrong"
             );
         } finally {
-            setLoading(false);
+            setLoadingAction(null);
         }
     };
 
     const handleAvailability = async () => {
+        if (isLoading) return;
+
         const nextAvailability =
             availability === "active" ? "inactive" : "active";
 
         try {
-            setLoading(true);
+            setLoadingAction("availability");
 
             const token = await getTokenFromClient();
 
@@ -77,11 +86,13 @@ export default function ServiceActions({
                 error instanceof Error ? error.message : "Something went wrong"
             );
         } finally {
-            setLoading(false);
+            setLoadingAction(null);
         }
     };
 
     const handleDelete = async () => {
+        if (isLoading) return;
+
         const confirmed = window.confirm(
             "Are you sure you want to permanently delete this service?"
         );
@@ -89,7 +100,7 @@ export default function ServiceActions({
         if (!confirmed) return;
 
         try {
-            setLoading(true);
+            setLoadingAction("delete");
 
             const token = await getTokenFromClient();
 
@@ -102,7 +113,7 @@ export default function ServiceActions({
                 error instanceof Error ? error.message : "Something went wrong"
             );
         } finally {
-            setLoading(false);
+            setLoadingAction(null);
         }
     };
 
@@ -113,19 +124,25 @@ export default function ServiceActions({
                     <button
                         type="button"
                         onClick={() => handleApproval("approve")}
-                        disabled={loading}
-                        className="rounded-md bg-green-600 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
+                        disabled={isLoading}
+                        className="inline-flex items-center justify-center gap-1.5 rounded-md bg-green-600 px-3 py-1.5 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        Approve
+                        {loadingAction === "approve" && (
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                        )}
+                        {loadingAction === "approve" ? "Approving..." : "Approve"}
                     </button>
 
                     <button
                         type="button"
                         onClick={() => handleApproval("reject")}
-                        disabled={loading}
-                        className="rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
+                        disabled={isLoading}
+                        className="inline-flex items-center justify-center gap-1.5 rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        Reject
+                        {loadingAction === "reject" && (
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                        )}
+                        {loadingAction === "reject" ? "Rejecting..." : "Reject"}
                     </button>
                 </>
             )}
@@ -134,20 +151,30 @@ export default function ServiceActions({
                 <button
                     type="button"
                     onClick={handleAvailability}
-                    disabled={loading}
-                    className="rounded-md border px-3 py-1.5 text-xs font-medium disabled:opacity-50"
+                    disabled={isLoading}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                    {availability === "active" ? "Deactivate" : "Activate"}
+                    {loadingAction === "availability" && (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                    )}
+                    {loadingAction === "availability"
+                        ? "Updating..."
+                        : availability === "active"
+                            ? "Deactivate"
+                            : "Activate"}
                 </button>
             )}
 
             <button
                 type="button"
                 onClick={handleDelete}
-                disabled={loading}
-                className="rounded-md border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 disabled:opacity-50"
+                disabled={isLoading}
+                className="inline-flex items-center justify-center gap-1.5 rounded-md border border-red-200 px-3 py-1.5 text-xs font-medium text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
-                Delete
+                {loadingAction === "delete" && (
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                )}
+                {loadingAction === "delete" ? "Deleting..." : "Delete"}
             </button>
         </div>
     );

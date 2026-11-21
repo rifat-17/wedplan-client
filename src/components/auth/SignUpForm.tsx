@@ -352,7 +352,7 @@ export default function SignUpForm() {
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#526B5A] px-4 py-3 font-medium text-white transition hover:bg-[#405646] disabled:cursor-not-allowed disabled:opacity-60"
             >
                 {isUploading && <Loader2 size={18} className="animate-spin" />}
-                {isUploading ? "Please wait..." : "Create Account"}
+                {isUploading ? "Creating account..." : "Create Account"}
             </button>
         </form>
     );
