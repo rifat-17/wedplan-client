@@ -3,7 +3,9 @@ import { redirect } from 'next/navigation'
 
 
 
-export default async function Success({ searchParams }) {
+export default async function Success({ searchParams }: {
+  searchParams: Promise<{ session_id?: string }>
+}) {
   const { session_id } = await searchParams
 
   if (!session_id)
