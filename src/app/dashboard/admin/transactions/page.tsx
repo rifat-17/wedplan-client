@@ -65,22 +65,29 @@ export default async function AdminTransactionsPage({
                             <th className="p-4">Amount</th>
                             <th className="p-4">Status</th>
                             <th className="p-4">Transaction Date</th>
-                            <th className="p-4">Session ID</th>
+
                         </tr>
                     </thead>
 
-                    {/* <tbody className="divide-y">
+                    <tbody className="divide-y">
                         {transactions.map((transaction) => (
                             <tr key={transaction._id}>
                                 <td className="p-4">
-                                    <p className="font-medium">
-                                        {transaction.vendor?.businessName ||
-                                            transaction.vendor?.name ||
-                                            "Unknown vendor"}
-                                    </p>
-                                    <p className="text-xs text-gray-500">
-                                        {transaction.vendor?.email || "—"}
-                                    </p>
+                                    <div className="flex items-center gap-3">
+
+
+                                        <div>
+                                            <p className="font-medium text-gray-900">
+                                                {transaction.vendor?.businessName ||
+                                                    transaction.vendor?.name ||
+                                                    "Unknown vendor"}
+                                            </p>
+
+                                            <p className="text-xs text-gray-500">
+                                                {transaction.vendor?.email || "—"}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </td>
 
                                 <td className="p-4">
@@ -88,14 +95,23 @@ export default async function AdminTransactionsPage({
                                 </td>
 
                                 <td className="p-4 font-medium">
-                                    {new Intl.NumberFormat("en-BD", {
+                                    {new Intl.NumberFormat("en-US", {
                                         style: "currency",
-                                        currency: transaction.currency || "BDT",
-                                    }).format(transaction.amount)}
+                                        currency: transaction.currency.toUpperCase(),
+                                    }).format(transaction.amount / 100)}
                                 </td>
 
                                 <td className="p-4">
-                                    <span className="capitalize">
+                                    <span
+                                        className={`rounded-full px-3 py-1 text-xs font-semibold capitalize ${transaction.status === "paid"
+                                                ? "bg-green-100 text-green-700"
+                                                : transaction.status === "pending"
+                                                    ? "bg-yellow-100 text-yellow-700"
+                                                    : transaction.status === "failed"
+                                                        ? "bg-red-100 text-red-700"
+                                                        : "bg-gray-100 text-gray-700"
+                                            }`}
+                                    >
                                         {transaction.status}
                                     </span>
                                 </td>
@@ -106,23 +122,21 @@ export default async function AdminTransactionsPage({
                                     ).toLocaleDateString("en-BD")}
                                 </td>
 
-                                <td className="max-w-40 truncate p-4 text-xs text-gray-500">
-                                    {transaction.stripeSessionId || "—"}
-                                </td>
+
                             </tr>
                         ))}
 
                         {transactions.length === 0 && (
                             <tr>
                                 <td
-                                    colSpan={6}
+                                    colSpan={5}
                                     className="p-8 text-center text-gray-500"
                                 >
                                     No transactions found.
                                 </td>
                             </tr>
                         )}
-                    </tbody> */}
+                    </tbody>
                 </table>
             </div>
         </div>

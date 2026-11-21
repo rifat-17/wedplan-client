@@ -78,8 +78,13 @@ export default async function VendorDashboard() {
                         </p>
                     </div>
 
-                    <span className="w-fit rounded-full bg-pink-50 px-4 py-2 text-sm font-semibold text-pink-600">
-                        {stats.subscriptionPlan} PLAN
+                    <span
+                        className={`w-fit rounded-full px-4 py-2 text-sm font-semibold ${user.subscriptionPlan === "PREMIUM"
+                                ? "bg-pink-50 text-pink-600"
+                                : "bg-gray-100 text-gray-600"
+                            }`}
+                    >
+                        {user.subscriptionPlan || "FREE"} PLAN
                     </span>
                 </div>
             </div>

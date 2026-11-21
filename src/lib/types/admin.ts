@@ -65,13 +65,13 @@ export type AdminTransaction = {
     plan: "FREE" | "PREMIUM";
     amount: number;
     currency: string;
-    stripeSessionId: string;
-    stripeSubscriptionId?: string;
     status: "pending" | "paid" | "failed" | "cancelled";
     createdAt: string;
     vendor?: {
+        _id: string;
         name: string;
         email?: string;
+        image?: string;
         businessName?: string;
     } | null;
 };

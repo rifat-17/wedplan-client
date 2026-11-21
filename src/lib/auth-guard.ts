@@ -13,6 +13,9 @@ const isValidRole = (role: unknown): role is UserRole => {
 export const getCurrentUser = async () => {
     const session = await auth.api.getSession({
         headers: await headers(),
+        query: {
+            disableCookieCache: true,
+        },
     });
 
     return session?.user ?? null;

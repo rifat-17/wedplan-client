@@ -1,5 +1,7 @@
 
 import { requireRole } from "@/lib/auth-guard";
+import UpgradeButton from "../../subscription/upgrade-button";
+import RecoverPaymentButton from "@/components/dashboard/vendor/subscription/recover-payment-button";
 
 
 const plans = [
@@ -97,17 +99,16 @@ const SubscriptionPage = async () => {
                                 </li>
                             ))}
                         </ul>
+
                         {plan.price > 0 && user.subscriptionPlan !== "PREMIUM" && (
-                            <button
-                                type="button"
-                                className="mt-8 w-full rounded-xl bg-pink-600 px-5 py-3 font-semibold text-white transition hover:bg-pink-700"
-                            >
-                                Upgrade to Premium
-                            </button>
+                            <div className="mt-8">
+                                <UpgradeButton />
+                            </div>
                         )}
                     </div>
                 ))}
             </div>
+            <RecoverPaymentButton />
         </section>
     );
 };
