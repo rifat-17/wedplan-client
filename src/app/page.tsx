@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-
-import { CategoriesSection } from "@/components/home/categories-section";
 import { FeaturedServices } from "@/components/home/featured-services";
 import { FinalCtaSection } from "@/components/home/final-cta-section";
 import { HeroSection } from "@/components/home/hero-section";
-import { HowItWorksSection } from "@/components/home/how-it-works-section";
+
 import { MotionProvider } from "@/components/home/motion-provider";
-import { SiteFooter } from "@/components/home/site-footer";
-import { WhyChooseSection } from "@/components/home/why-choose-section";
+
+
+
+
 import WeddingCategories from "@/components/home/wedding-categories";
+import WhyChooseWedPlan from "@/components/home/why-choose-wedplan";
+import HowWedPlanWorks from "@/components/home/ow-wedplan-works";
 
 export const metadata: Metadata = {
   title: "WedPlan — Your Dream Wedding Starts Here",
@@ -23,11 +25,9 @@ export default function Home() {
         <HeroSection />
         <FeaturedServices />
         <WeddingCategories />
-        {/* <CategoriesSection /> */}
-        {/* <WhyChooseSection /> */}
-        {/* <HowItWorksSection /> */}
+        <WhyChooseWedPlan />
+        <HowWedPlanWorks />
         <FinalCtaSection />
-        {/* <SiteFooter /> */}
       </div>
     </MotionProvider>
   );

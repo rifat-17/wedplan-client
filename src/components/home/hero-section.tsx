@@ -96,64 +96,14 @@ export function HeroSection() {
               Explore Wedding Services
               <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover/button:translate-x-0.5" />
             </Link>
-            <Link
-              href="#how-it-works"
-              className={cn(
-                buttonVariants({ variant: "outline" }),
-                "h-12 rounded-full border-white/35 bg-white/5 px-7 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white/15 hover:text-white",
-              )}
-            >
-              <PlayIcon className="size-3.5 fill-current" />
-              How It Works
-            </Link>
+            
           </motion.div>
 
           <motion.div
             variants={item}
             className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4 border-t border-white/15 pt-7"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2.5">
-                {trustAvatars.map((avatar) => (
-                  <span
-                    key={avatar.src}
-                    className="relative size-9 overflow-hidden rounded-full border-2 border-[#1b241e]"
-                  >
-                    <Image
-                      src={avatar.src}
-                      alt={avatar.alt}
-                      fill
-                      sizes="36px"
-                      className="object-cover"
-                    />
-                  </span>
-                ))}
-              </div>
-              <div className="text-xs leading-tight text-white/75">
-                <span className="block font-medium text-white">
-                  2,400+ couples
-                </span>
-                planned with WedPlan
-              </div>
-            </div>
-
-            <span aria-hidden="true" className="hidden h-8 w-px bg-white/15 sm:block" />
-
-            <div className="flex items-center gap-2 text-xs text-white/75">
-              <span className="flex items-center gap-0.5 text-[#e8c48c]">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <StarIcon
-                    key={index}
-                    className="size-3.5 fill-current"
-                    aria-hidden="true"
-                  />
-                ))}
-              </span>
-              <span>
-                <span className="font-medium text-white">4.9</span> from 1,800+
-                reviews
-              </span>
-            </div>
+          
           </motion.div>
         </motion.div>
       </div>
