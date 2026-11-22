@@ -20,15 +20,12 @@ const container: Variants = {
 };
 
 const item: Variants = {
-    hidden: {
-        opacity: 0,
-        y: 26,
-    },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.8,
+            duration: 0.7,
             ease: [0.22, 1, 0.36, 1],
         },
     },
@@ -38,7 +35,7 @@ export function HeroSection() {
     return (
         <section
             id="top"
-            className="relative isolate min-h-[600px] scroll-mt-24 overflow-hidden bg-forest sm:min-h-[680px] lg:min-h-[720px]"
+            className="relative isolate min-h-[580px] scroll-mt-20 overflow-hidden bg-forest sm:min-h-[650px] lg:min-h-[720px]"
         >
             {/* Background Image */}
             <Image
@@ -47,22 +44,22 @@ export function HeroSection() {
                 fill
                 priority
                 sizes="100vw"
-                className="object-cover object-[58%_center] sm:object-center"
+                className="object-cover object-[65%_center] sm:object-center"
             />
 
-            {/* Background Overlays */}
+            {/* Background Overlay */}
             <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-r from-[#141b16]/95 via-[#18201a]/75 to-[#18201a]/30"
+                className="absolute inset-0 bg-gradient-to-b from-[#141b16]/55 via-[#141b16]/65 to-[#141b16]/90 sm:bg-gradient-to-r sm:from-[#141b16]/95 sm:via-[#18201a]/75 sm:to-[#18201a]/25"
             />
 
             <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[#141b16]/80 via-transparent to-[#141b16]/20"
+                className="absolute inset-0 bg-gradient-to-t from-[#141b16]/30 to-transparent sm:from-transparent"
             />
 
-            {/* Hero Content */}
-            <div className="relative mx-auto flex min-h-[600px] w-full max-w-7xl items-center px-4 py-20 sm:min-h-[680px] sm:px-6 sm:py-24 lg:min-h-[720px] lg:px-8">
+            {/* Content */}
+            <div className="relative mx-auto flex min-h-[580px] w-full max-w-7xl items-center px-5 py-20 sm:min-h-[650px] sm:px-6 sm:py-24 lg:min-h-[720px] lg:px-8">
                 <motion.div
                     variants={container}
                     initial="hidden"
@@ -72,19 +69,16 @@ export function HeroSection() {
                     {/* Badge */}
                     <motion.span
                         variants={item}
-                        className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-2 text-[0.6rem] font-medium tracking-[0.12em] text-white/90 uppercase backdrop-blur-md sm:px-3.5 sm:text-xs sm:tracking-[0.16em]"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-2 text-[10px] font-medium tracking-[0.12em] text-white/90 uppercase backdrop-blur-md sm:px-3.5 sm:text-xs sm:tracking-[0.16em]"
                     >
-                        <span
-                            aria-hidden="true"
-                            className="size-1.5 shrink-0 rounded-full bg-accent"
-                        />
+                        <span className="size-1.5 shrink-0 rounded-full bg-accent" />
                         Wedding planning, beautifully simple
                     </motion.span>
 
                     {/* Heading */}
                     <motion.h1
                         variants={item}
-                        className="mt-6 max-w-xl font-serif text-[2.65rem] leading-[1.08] font-medium tracking-tight text-balance text-white min-[400px]:text-5xl sm:mt-7 sm:text-6xl lg:text-[4.6rem] lg:leading-[1.04]"
+                        className="mt-6 max-w-[14ch] font-serif text-[clamp(2.65rem,10vw,3.5rem)] leading-[1.08] font-medium tracking-tight text-white text-balance sm:mt-7 sm:max-w-xl sm:text-6xl lg:text-[4.6rem] lg:leading-[1.04]"
                     >
                         Your{" "}
                         <em className="text-[#f2d9d2] italic">
@@ -96,7 +90,7 @@ export function HeroSection() {
                     {/* Description */}
                     <motion.p
                         variants={item}
-                        className="mt-5 max-w-lg text-sm leading-7 text-white/80 sm:mt-6 sm:text-base sm:leading-relaxed lg:text-lg"
+                        className="mt-5 max-w-md text-[14px] leading-7 text-white/85 sm:mt-6 sm:text-base sm:leading-relaxed lg:text-lg"
                     >
                         Discover and book trusted wedding photographers,
                         venues, florists, caterers, and stylists — the people
@@ -107,13 +101,13 @@ export function HeroSection() {
                     {/* CTA */}
                     <motion.div
                         variants={item}
-                        className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center"
+                        className="mt-8 sm:mt-9"
                     >
                         <Link
                             href="/services"
                             className={cn(
                                 buttonVariants({ variant: "default" }),
-                                "group h-12 w-full justify-center rounded-full bg-background px-7 text-sm font-medium text-foreground shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl hover:shadow-black/25 sm:w-auto"
+                                "group flex h-12 w-full items-center justify-center gap-2 rounded-full bg-background px-6 text-sm font-medium text-foreground shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-xl sm:inline-flex sm:w-auto sm:px-7"
                             )}
                         >
                             Explore Wedding Services
