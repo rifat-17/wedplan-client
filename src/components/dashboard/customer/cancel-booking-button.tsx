@@ -19,11 +19,11 @@ export default function CancelBookingButton({ bookingId }: Props) {
     const handleCancel = async () => {
         if (loading) return;
 
-        const confirmed = window.confirm(
-            "Are you sure you want to cancel this booking?"
-        );
+        // const confirmed = window.confirm(
+        //     "Are you sure you want to cancel this booking?"
+        // );
 
-        if (!confirmed) return;
+        // if (!confirmed) return;
 
         try {
             setLoading(true);

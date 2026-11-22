@@ -34,11 +34,11 @@ export default function ServiceActions({
     const handleApproval = async (action: "approve" | "reject") => {
         if (isLoading) return;
 
-        const confirmed = window.confirm(
-            `Are you sure you want to ${action} this service?`
-        );
+        // const confirmed = window.confirm(
+        //     `Are you sure you want to ${action} this service?`
+        // );
 
-        if (!confirmed) return;
+        // if (!confirmed) return;
 
         try {
             setLoadingAction(action);
@@ -93,11 +93,11 @@ export default function ServiceActions({
     const handleDelete = async () => {
         if (isLoading) return;
 
-        const confirmed = window.confirm(
-            "Are you sure you want to permanently delete this service?"
-        );
+        // const confirmed = window.confirm(
+        //     "Are you sure you want to permanently delete this service?"
+        // );
 
-        if (!confirmed) return;
+        // if (!confirmed) return;
 
         try {
             setLoadingAction("delete");
