@@ -80,3 +80,16 @@ export type AdminTransactionsResponse = {
     transactions: AdminTransaction[];
     total: number;
 };
+
+
+
+
+export type AdminProfile = {
+    _id: string;
+    name: string;
+    email: string;
+    image?: string;
+    role: "ADMIN";
+    isBlocked: boolean;
+    createdAt?: string;
+};

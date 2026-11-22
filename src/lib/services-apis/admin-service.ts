@@ -1,4 +1,4 @@
-import { AdminDashboardStats, AdminServicesResponse, AdminTransactionsResponse, AdminUser } from "../types/admin";
+import { AdminDashboardStats,  AdminProfile,  AdminServicesResponse, AdminTransactionsResponse, AdminUser } from "../types/admin";
 import {
     AdminUsersResponse,
 } from "../types/admin";
@@ -272,6 +272,52 @@ export const getAdminTransactions = async (
 
     if (!response.ok) {
         throw new Error("Failed to fetch transactions");
+    }
+
+    return response.json();
+};
+
+
+
+
+
+
+
+
+
+// Get logged-in admin profile
+export const getAdminProfile = async (
+    token: string
+): Promise<{ admin: AdminProfile }> => {
+    const response = await fetch(`${API_URL}/admin/profile`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch admin profile");
+    }
+
+    return response.json();
+};
+
+// Update admin profile
+export const updateAdminProfile = async (
+    token: string,
+    profileData: { name: string; image?: string }
+): Promise<{ message: string; admin: AdminProfile }> => {
+    const response = await fetch(`${API_URL}/admin/profile`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(profileData),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to update admin profile");
     }
 
     return response.json();
