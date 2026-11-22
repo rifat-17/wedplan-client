@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import {
@@ -7,7 +6,7 @@ import {
     PhoneIcon,
 } from "lucide-react";
 
-// Reusable brand logo matching the navbar
+// Brand Logo
 function Brand() {
     return (
         <Link
@@ -30,85 +29,49 @@ function Brand() {
     );
 }
 
+// Footer Navigation
 const FOOTER_LINKS = [
-    {
-        title: "Explore",
-        links: [
-            { label: "Home", href: "/" },
-            { label: "Browse Services", href: "/services" },
-        ],
-    },
-    {
-        title: "Account",
-        links: [
-            { label: "Sign In", href: "/sign-in" },
-            { label: "Sign Up", href: "/sign-up" },
-        ],
-    },
+    { label: "Home", href: "/" },
+    { label: "Browse Services", href: "/services" },
 ];
-
-
 
 export default function Footer() {
     return (
         <footer className="border-t border-border/70 bg-secondary/30">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                {/* Main Footer */}
-                <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-12 lg:py-16">
+                <div className="grid gap-10 py-12 md:grid-cols-3 lg:gap-16 lg:py-14">
 
                     {/* Brand & Description */}
-                    <div className="lg:col-span-1">
+                    <div>
                         <Brand />
 
-                        <p className="mt-5 max-w-xs text-sm leading-7 text-muted-foreground">
+                        <p className="mt-5 max-w-sm text-sm leading-7 text-muted-foreground">
                             Make your special day unforgettable with WedPlan.
                             Discover trusted wedding vendors, explore services,
                             and bring your dream wedding to life.
                         </p>
-
-                        {/* Social Links */}
-                        {/* <div className="mt-6 flex items-center gap-3">
-                            {SOCIAL_LINKS.map((social) => {
-                                const Icon = social.icon;
-
-                                return (
-                                    <Link
-                                        key={social.label}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={social.label}
-                                        className="flex size-9 items-center justify-center rounded-full border border-border/70 bg-background text-muted-foreground transition-all hover:border-primary hover:bg-primary hover:text-primary-foreground"
-                                    >
-                                        <Icon size={17} />
-                                    </Link>
-                                );
-                            })}
-                        </div> */}
                     </div>
 
-                    {/* Navigation Links */}
-                    {FOOTER_LINKS.map((group) => (
-                        <div key={group.title}>
-                            <h3 className="mb-5 text-sm font-semibold text-foreground">
-                                {group.title}
-                            </h3>
+                    {/* Explore Links */}
+                    <div>
+                        <h3 className="mb-5 text-sm font-semibold text-foreground">
+                            Explore
+                        </h3>
 
-                            <ul className="space-y-3">
-                                {group.links.map((link) => (
-                                    <li key={link.href}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                        <ul className="space-y-3">
+                            {FOOTER_LINKS.map((link) => (
+                                <li key={link.href}>
+                                    <Link
+                                        href={link.href}
+                                        className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
                     {/* Contact Information */}
                     <div>
