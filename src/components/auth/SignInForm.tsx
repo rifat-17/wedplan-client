@@ -9,14 +9,15 @@ import { authClient } from "@/lib/auth-client";
 function getDashboardPath(role: string) {
     switch (role) {
         case "ADMIN":
-            return "/admin/dashboard";
+            return "/dashboard/admin/";
         case "VENDOR":
-            return "/vendor/dashboard";
+            return "/dashboard/vendor";
         case "CUSTOMER":
         default:
-            return "/customer/dashboard";
+            return "/dashboard/customer";
     }
 }
+
 
 export default function SignInForm() {
     const router = useRouter();
