@@ -302,23 +302,3 @@ export const getAdminProfile = async (
     return response.json();
 };
 
-// Update admin profile
-export const updateAdminProfile = async (
-    token: string,
-    profileData: { name: string; image?: string }
-): Promise<{ message: string; admin: AdminProfile }> => {
-    const response = await fetch(`${API_URL}/admin/profile`, {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(profileData),
-    });
-
-    if (!response.ok) {
-        throw new Error("Failed to update admin profile");
-    }
-
-    return response.json();
-};
