@@ -135,9 +135,9 @@ export default function SignUpForm() {
             const userRole = data.user.role;
 
             if (userRole === "VENDOR") {
-                router.push("/vendor/dashboard");
+                router.push("/dashboard/vendor");
             } else {
-                router.push("/customer/dashboard");
+                router.push("/dashboard/customer");
             }
                
             router.refresh();
