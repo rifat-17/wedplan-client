@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WedPlan
 
-## Getting Started
+WedPlan is a wedding planning platform that connects customers with wedding service providers. Customers can explore services and manage bookings, while vendors can manage their services and bookings.
 
-First, run the development server:
+## Features
+
+- User authentication with role-based access
+- Browse and explore wedding services
+- Vendor dashboard and service management
+- Booking management
+- Admin dashboard and user management
+- User profile management
+- Vendor subscription plans
+- Payment integration
+- Responsive design
+
+## Tech Stack
+
+**Frontend:** Next.js, TypeScript, Tailwind CSS, shadcn/ui
+
+**Backend:** Node.js, Express.js, MongoDB
+
+**Authentication:** Better Auth, JWT
+
+## Installation
+
+Clone the repositories:
+
+```bash
+git clone https://github.com/rifat-17/wedplan-client.git
+git clone https://github.com/rifat-17/wedplan-server.git
+```
+
+Install dependencies in both folders:
+
+```bash
+npm install
+```
+
+Create the required environment files and add your configuration.
+
+## Run Locally
+
+Start the backend:
+
+```bash
+nodemon index.js
+```
+
+Start the frontend in a separate terminal:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Links
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Live Website:** [https://wedplan-client-beige.vercel.app/](https://wedplan-client-beige.vercel.app/)
+- **Client Repository:** [https://github.com/rifat-17/wedplan-client](https://github.com/rifat-17/wedplan-client)
+- **Server Repository:** [https://github.com/rifat-17/wedplan-server](https://github.com/rifat-17/wedplan-server)
