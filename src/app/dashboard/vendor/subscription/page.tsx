@@ -1,7 +1,8 @@
 
 import { requireRole } from "@/lib/auth-guard";
-import UpgradeButton from "../../subscription/upgrade-button";
+
 import RecoverPaymentButton from "@/components/dashboard/vendor/subscription/recover-payment-button";
+import UpgradeButton from "@/components/dashboard/vendor/subscription/upgrade-button";
 
 
 const plans = [
