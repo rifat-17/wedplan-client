@@ -20,7 +20,7 @@ export default function UserFilters() {
             params.delete(key);
         }
 
-        router.push(`/dashboard/admin/users?${params.toString()}`);
+        router.push(`/dashboard/admin/manage-users?${params.toString()}`);
     };
 
     return (
